@@ -22,17 +22,17 @@
 
     // Use 'describe ()', 'it ()' and 'expect ()' to test the syntax with jest.
 
-    describe ("function", () => {
-    const fibLength1 = 6
-    // Expected output: [1, 1, 2, 3, 5, 8]
-    const fibLength2 = 10
-    // Expected output: [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+//     describe ("fib", () => {
+//     const fibLength1 = 6
+//     // Expected output: [1, 1, 2, 3, 5, 8]
+//     const fibLength2 = 10
+//     // Expected output: [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
 
-    it("takes in a number (greater than 2) and returns an array that length containing the numbers of the Fibonacci sequence", () => {
-    expect(fib(fibLength1)).toEqual([1, 1, 2, 3, 5, 8])
-    expect(fib(fibLength2)).toEqual([1, 1, 2, 3, 5, 8, 13, 21, 34, 55])
-})
-})
+//     it("takes in a number (greater than 2) and returns an array that length containing the numbers of the Fibonacci sequence", () => {
+//     expect(fib(fibLength1)).toEqual([1, 1, 2, 3, 5, 8])
+//     expect(fib(fibLength2)).toEqual([1, 1, 2, 3, 5, 8, 13, 21, 34, 55])
+// })
+// })
 
         // after running yarn jest received
         // --> ReferenceError: fib is not defined
@@ -41,18 +41,31 @@
 // b) Create the function that makes the test pass.
 
     // The Fibonacci sequence is a set of integers (the Fibonacci numbers) that starts with a zero, followed by a one, then by another one, and then by a series of steadily increasing numbers. The sequence follows the rule that each number is equal to the sum of the preceding two numbers.
-    // Create a function that if an 
-
-
-    const fib = function(n) {
-    if (n === 2) {
-    return [1, 1];
-    } else {
-    const fibLength1 = fib(n - 1);
-    fibLength1.push(fibLength1[fibLength1.length - 1] + fibLength1[fibLength1.length - 2]);
-    return fibLength1;
+    // Create a function named fib
+    // accepts any lenght and returns that length of numbers in the fibonacci sequence. 
+    // run a loop with the value of index starting at 2
+    // since i = 2, assign fibArray the value of [1,1]
+    // the loop will run thorough the length of the requested length (6)
+    // with the returned fibArray use .push() to append the required elements into fibArray with a length of 6.
+    // The sequence follows the rule that each number is equal to the sum of the preceding two numbers. do this by adding [i-1] to [i-2]
+    // finally add the numbers together from the previous two sequences
+    
+    const fibLength1 = 6
+    // Expected output: [1, 1, 2, 3, 5, 8]
+    const fibLength2 = 10
+    // Expected output: [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+    
+    const fib = (length) => {
+        let fibArray = [1, 1]
+        //[1,1,2]
+        //[1,1,2,3]
+        for (let i = 2; i < length; i++){
+            fibArray.push(fibArray[i-1] + fibArray[i-2])
+        }
+        return fibArray
     }
-};
+
+    //  console.log(fib(fibLength1))
 
         // **It took a long time but i finally figured it out. At the very bottom is the passing test. 
     // function did not pass. The actual output did not equal the expected output. The output includes 7 elements instead of 6 and 11 elements instead of 10. Both arrays include a 0 and I could not figure out how to remove it. Tried .splice(), .pop() but no luck.
@@ -84,17 +97,17 @@
     
     // Use 'describe ()', 'it ()' and 'expect ()' to test the syntax with jest.
 
-    describe ("function", () => {
-    const fullArr1 = [4, 9, 0, "7", 8, true, "hey", 7, 199, -9, false, "hola"]
-    // Expected output: [-9, 7, 9, 199]
-    const fullArr2 = ["hello", 7, 23, -823, false, 78, null, "67", 6, "number"]
-    // Expected output: [-823, 7, 23]
+    // describe ("sortOddNums", () => {
+    // const fullArr1 = [4, 9, 0, "7", 8, true, "hey", 7, 199, -9, false, "hola"]
+    // // Expected output: [-9, 7, 9, 199]
+    // const fullArr2 = ["hello", 7, 23, -823, false, 78, null, "67", 6, "number"]
+    // // Expected output: [-823, 7, 23]
 
-    it ("takes in an array and returns a new array of only odd numbers sorted from least to greatest", () => {
-    expect(final1).toEqual([-9, 7, 9, 199])
-        expect(final2).toEqual([-823, 7, 23])
-    })
-    })
+    // it ("takes in an array and returns a new array of only odd numbers sorted from least to greatest", () => {
+    // expect(sortOddNums(fullArr1)).toEqual([-9, 7, 9, 199])
+    // expect(sortOddNums(fullArr2)).toEqual([-823, 7, 23])
+    // })
+    // })
     
         // after running yarn jest received
         // --> ReferenceError: numsOnly is not defined
@@ -106,23 +119,39 @@
     // The function (numbsOnly) will filter through the output of (odds) and only return the number data types. However, they will not be in the correct order of least to greatest.
     // create a function (final) using .sort() and include a compare function (function(a, b){return a-b}) to receive the output in the correct order. The sort() method invoked without arguments sorts the elements alphabetically.
     // ** Without compare function (function(a, b){return a-b}), output --> [ 9, 7, 199, -9 ].
-    // ** When the sort() function compares two values, it sends the values to the compare function, and sorts the values according to the returned (negative, zero, positive) value. If the result is negative a is sorted before b. If the result is positive b is sorted before a. If the result is 0 no changes are done with the sort order of the two values.
-
-
-    const fullArr1 = [4, 9, 0, "7", 8, true, "hey", 7, 199, -9, false, "hola"]
-    const fullArr2 = ["hello", 7, 23, -823, false, 78, null, "67", 6, "number"]
-
-    const odds = fullArr1.filter(n => n % 2 !== 0)  
-    const numsOnly1 = odds.filter(element => typeof element === "number")
-    const final1 = numsOnly1.sort(function(a, b){return a-b})
+    // ** When the sort() function compares two values, it sends the values to the compare function, and sorts the values according to the returned (negative, zero, positive) value. If the result is negative a is sorted before b. If the result is positive b is sorted before a. If the result is 0 no changes are done with the sort order of the two values.   
+   
+    // const odds = fullArr1.filter(n => n % 2 !== 0)  
+    // const numsOnly1 = odds.filter(element => typeof element === "number")
+    // const final1 = numsOnly1.sort(function(a, b){return a-b})
     
-    const odds2 = fullArr2.filter(n => n % 2 !== 0)
-    const numsOnly2 = odds2.filter(element => typeof element === "number")
-    const final2 = numsOnly2.sort(function(a, b){return a-b})
+    // const odds2 = fullArr2.filter(n => n % 2 !== 0)
+    // const numsOnly2 = odds2.filter(element => typeof element === "number")
+    // const final2 = numsOnly2.sort(function(a, b){return a-b})
 
     // PASS  ./code-challenges.test.js
     // function
     // ✓ takes in an array and returns a new array of only odd numbers sorted from least to greatest (2 ms)
+
+
+    const fullArr1 = [4, 9, 0, "7", 8, true, "hey", 7, 199, -9, false, "hola"]
+    // Expected output: [-9, 7, 9, 199]
+   const fullArr2 = ["hello", 7, 23, -823, false, 78, null, "67", 6, "number"]
+   // Expected output: [-823, 7, 23]
+
+// Declare a function sortOddNums that takes in an array
+// Iterate through the array filter out the numbers since the provided array has different values
+// Now you have to find only odd numbers. You can use a modulo for this
+// The array will include only odd numbers however, they will not be in order of least to greatest.
+// sort thorugh the array and figure out how to return the numbers in the requested order
+
+    const sortOddNums = (array) => {
+       let numArray = array.filter(value => typeof value === "number")
+       let oddNum = numArray.filter(value => value % 2 !== 0)
+       let oddSort = oddNum.sort((a,b)=>a-b)
+       return oddSort
+   }  
+    //    console.log(sortOddNums(fullArr1))
     
 
 // --------------------3) Create a function that takes in an array and returns an array of the accumulating sum. An empty array should return an empty array.
@@ -136,21 +165,21 @@
 // const numbersToAdd3 = []
 // // Expected output: []
 
-    describe ("function", () => {
-    const numbersToAdd1 = [2, 4, 45, 9]
-    // Expected output: [2, 6, 51, 60]
-    const numbersToAdd2 = [0, 7, -8, 12]
-    // Expected output: [0, 7, -1, 11]
-    const numbersToAdd3 = []
-    // Expected output: []
+    // describe ("function", () => {
+    // const numbersToAdd1 = [2, 4, 45, 9]
+    // // Expected output: [2, 6, 51, 60]
+    // const numbersToAdd2 = [0, 7, -8, 12]
+    // // Expected output: [0, 7, -1, 11]
+    // const numbersToAdd3 = []
+    // // Expected output: []
 
 
-    it ("takes in an array and returns an array of the accumulating sum. An empty array should return an empty array.", () => {
-    expect(numbersToAdd1.map(sum1)).toEqual([2, 6, 51, 60])
-    expect(numbersToAdd2.map(sum2)).toEqual([0, 7, -1, 11])
-    expect(numbersToAdd3.map(sum3)).toEqual([])
-    })
-    })
+    // it ("takes in an array and returns an array of the accumulating sum. An empty array should return an empty array.", () => {
+    // expect(numbersToAdd1.map(sum1)).toEqual([2, 6, 51, 60])
+    // expect(numbersToAdd2.map(sum2)).toEqual([0, 7, -1, 11])
+    // expect(numbersToAdd3.map(sum3)).toEqual([])
+    // })
+    // })
 
         // after running yarn jest received
         // ReferenceError: sum1 is not defined
@@ -159,12 +188,12 @@
 
     // Use the addition assignment += which takes the value form the right of the operator and adds it to the variable on the left. 
     
-    const numbersToAdd1 = [2, 4, 45, 9]
-    const sum1 = (sum => value => sum += value)(0);
-    const numbersToAdd2 = [0, 7, -8, 12]
-    const sum2 = (sum => value => sum += value)(0);
-    const numbersToAdd3 = []
-    const sum3 = (sum => value => sum += value)(0);
+    // const numbersToAdd1 = [2, 4, 45, 9]
+    // const sum1 = (sum => value => sum += value)(0);
+    // const numbersToAdd2 = [0, 7, -8, 12]
+    // const sum2 = (sum => value => sum += value)(0);
+    // const numbersToAdd3 = []
+    // const sum3 = (sum => value => sum += value)(0);
 
     // PASS  ./code-challenges.test.js
     // function
